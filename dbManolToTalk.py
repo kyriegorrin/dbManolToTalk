@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import ttk, font
 
-#GUI part
+#GUI CLASS
 class AppGUI():
     def __init__(self):
         #Window configuration
@@ -10,10 +10,11 @@ class AppGUI():
         window.resizable(0,0)
         window.configure(bg = "white")
         window.title("dbManolToTalk")
+        window.iconbitmap("imanol.ico")
         
         #Miscellaneous variables
         self.imanolOriginal = PhotoImage(file="imanol.png")
-        self.imanol = self.imanolOriginal.subsample(2)
+        self.imanol = self.imanolOriginal.subsample(3)
         
         self.myFont = font.Font(weight="bold")
 
@@ -37,6 +38,7 @@ class AppGUI():
         self.canvas = Canvas(window, width=150, height=150, bg="white")
 
         #Widget configuration
+        self.canvas.create_rectangle(40, 40, 110, 110, fill="grey", outline="grey")
         self.canvas.create_image(75, 75, image=self.imanol, anchor=CENTER)
 
         #Widget placement
@@ -49,8 +51,18 @@ class AppGUI():
         #Whatever the fuck this is
         window.mainloop()
 
+    #def refreshIndicator(sensitivity, db):
+        #TODO
+
+#AUDIO CLASS
+#class DbManolDetector():
+#    def __init__(self):
+
+
+#MAIN
 def main():
     gui = AppGUI()
+    print("hello")
     return 0
 
 if __name__ == "__main__":
