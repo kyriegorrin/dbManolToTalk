@@ -18,7 +18,7 @@ class AppGUI():
         
         self.myFont = font.Font(weight="bold")
 
-        self.sens = DoubleVar()
+        self.sens = 0
 
         #Widget definition
         #TODO: commands for buttons
@@ -29,7 +29,7 @@ class AppGUI():
                                     font=self.myFont, background="white")
 
         self.slider = ttk.Scale(window, 
-                                variable = self.sens, 
+                                command=self.refreshIndicator,
                                 orient = HORIZONTAL,
                                 length=250,
                                 from_=0.0,
@@ -38,7 +38,7 @@ class AppGUI():
         self.canvas = Canvas(window, width=150, height=150, bg="white")
 
         #Widget configuration
-        self.canvas.create_rectangle(40, 40, 110, 110, fill="grey", outline="grey")
+        self.canvas.create_rectangle(75-self.sens, 75-self.sens,75+self.sens, 75+self.sens, fill="grey", outline="grey")
         self.canvas.create_image(75, 75, image=self.imanol, anchor=CENTER)
 
         #Widget placement
@@ -51,8 +51,12 @@ class AppGUI():
         #Whatever the fuck this is
         window.mainloop()
 
-    #def refreshIndicator(sensitivity, db):
-        #TODO
+    def refreshIndicator(self, val):
+        self.sens = self.slider.get()
+        self.canvas.delete("all")
+        self.canvas.create_rectangle(75-self.sens/2, 75-self.sens/2,75+self.sens/2, 75+self.sens/2, fill="grey", outline="grey")
+        self.canvas.create_image(75, 75, image=self.imanol, anchor=CENTER)
+        
 
 #AUDIO CLASS
 #class DbManolDetector():
