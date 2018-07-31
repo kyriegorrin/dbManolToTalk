@@ -5,12 +5,12 @@ from tkinter import ttk, font
 class AppGUI():
     def __init__(self):
         #Window configuration
-        window = Tk()
-        window.geometry("500x200")
-        window.resizable(0,0)
-        window.configure(bg = "white")
-        window.title("dbManolToTalk")
-        window.iconbitmap("imanol.ico")
+        self.window = Tk()
+        self.window.geometry("500x200")
+        self.window.resizable(0,0)
+        self.window.configure(bg = "white")
+        self.window.title("dbManolToTalk")
+        self.window.iconbitmap("imanol.ico")
         
         #Miscellaneous variables
         self.imanolOriginal = PhotoImage(file="imanol.png")
@@ -22,20 +22,20 @@ class AppGUI():
 
         #Widget definition
         #TODO: commands for buttons
-        self.talkKey = ttk.Button(window, text = "KEY BIND: V")
-        self.stopKey = ttk.Button(window, text = "STOP KEY: F5")
+        self.talkKey = ttk.Button(self.window, text = "KEY BIND: V")
+        self.stopKey = ttk.Button(self.window, text = "STOP KEY: F5")
 
-        self.sensLabel = ttk.Label(window, text="Sensitivity", 
+        self.sensLabel = ttk.Label(self.window, text="Sensitivity", 
                                     font=self.myFont, background="white")
 
-        self.slider = ttk.Scale(window, 
+        self.slider = ttk.Scale(self.window, 
                                 command=self.refreshIndicator,
                                 orient = HORIZONTAL,
                                 length=250,
                                 from_=0.0,
                                 to=100.0)
 
-        self.canvas = Canvas(window, width=150, height=150, bg="white")
+        self.canvas = Canvas(self.window, width=150, height=150, bg="white")
 
         #Widget configuration
         self.canvas.create_rectangle(75-self.sens, 75-self.sens,75+self.sens, 75+self.sens, fill="grey", outline="grey")
@@ -48,14 +48,16 @@ class AppGUI():
         self.talkKey.place(x=250, y=150)
         self.stopKey.place(x=350, y=150)
 
-        #Whatever the fuck this is
-        window.mainloop()
-
+    #Method for the canvas refresh
     def refreshIndicator(self, val):
         self.sens = self.slider.get()
         self.canvas.delete("all")
         self.canvas.create_rectangle(75-self.sens/2, 75-self.sens/2,75+self.sens/2, 75+self.sens/2, fill="grey", outline="grey")
         self.canvas.create_image(75, 75, image=self.imanol, anchor=CENTER)
+
+    #Method to obtain the root for control purposes
+    def getRoot(self):
+        return self.window
         
 
 #AUDIO CLASS
@@ -66,7 +68,16 @@ class AppGUI():
 #MAIN
 def main():
     gui = AppGUI()
-    print("hello")
+    guiRoot = gui.getRoot()
+
+    #Main while
+    while True:
+        print("hello")
+        
+        #Non-blocking subtitutes for tk.mainloop()
+        guiRoot.update_idletasks()
+        guiRoot.update()        
+
     return 0
 
 if __name__ == "__main__":
