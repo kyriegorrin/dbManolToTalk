@@ -16,4 +16,5 @@ Python program to get voice detection microphone activation on games and other p
 
 <h2>What do I need?</h2>
     Python 3.X
+    tkinter (you probably already have it, normally distributed with Python)
     //TODO finished list
